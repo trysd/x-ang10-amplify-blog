@@ -10,62 +10,113 @@ import * as t from '../types';
 })
 export class AppComponent implements OnInit {
 
+  /** blogフォーム状態 */
   blog: t.Blog = {
     id: null,
     name: null
   };
 
+  /** postフォーム状態 */
   post: t.Post = {
     id: null,
     title: null,
     blogID: null
   };
 
+  /** commentフォーム状態 */
   comment: t.Comment = {
     id: null,
     content: null,
     postID: null
   };
 
+  /** blogリスト */
   blogList = [];
+
+  /** postリスト */
   postList = [];
+
+  /** commentリスト */
   commentList = [];
 
+  /** constractor */
   constructor(
     private api: APIService
-  ) {}
+  ) { }
 
+  /**
+   * 初期設定
+   */
   ngOnInit(): void {
 
-    /** --- blog --- */
+    /**
+     * ===== blog初期設定
+     */
+
     // blogリスト取得
     this.api.ListBlogs().then(e => {
       this.blogList = e.items;
+      this.updateBlogSelect();
     });
+
     // blog作成検知
     this.api.OnCreateBlogListener.subscribe(
-      (e: any) => this.blogList = [e.value.data.onCreateBlog, ...this.blogList]);
+      // リスト更新
+      (e: any) => {
+        // this.blogList = [e.value.data.onCreateBlog, ...this.blogList];
+        this.blogList.push(e.value.data.onCreateBlog);
+        this.updateBlogSelect();
+      });
 
-    /** --- post --- */
+    /**
+     * ===== post初期設定
+     */
+
     // postリスト取得
     this.api.ListPosts().then(e => {
       this.postList = e.items;
-      this.post.blogID = this.postList[this.postList.length - 1].blogID; // 最新を選択
+      this.updatePostSelect();
     });
+
     // post作成検知
     this.api.OnCreatePostListener.subscribe(
-      (e: any) => this.postList = [e.value.data.onCreatePost, ...this.postList]);
+      // リスト更新
+      (e: any) => {
+        // this.postList = [e.value.data.onCreatePost, ...this.postList];
+        this.postList.push(e.value.data.onCreatePost);
+        this.updatePostSelect();
+      });
 
-    /** --- comment --- */
+    /**
+     * ===== comment初期設定
+     */
+
     // commentリスト取得
     this.api.ListComments().then(e => {
       this.commentList = e.items;
-      this.comment.postID = this.commentList[this.commentList.length - 1].postID; // 最新を選択
     });
+
     // comment作成検知
     this.api.OnCreateCommentListener.subscribe(
+      // リスト更新
       (e: any) => this.commentList = [e.value.data.onCreateComment, ...this.commentList]);
 
+  }
+
+  /** blog選択状態更新 */
+  updateBlogSelect(): void {
+    // blogを選ぶselectの選択を最新blogに
+    if (this.blogList.length > 0) {
+      this.post.blogID = this.blogList[this.blogList.length - 1].id;
+    }
+  }
+
+  /** post選択状態更新 */
+  updatePostSelect(): void {
+    // postを選ぶselectの選択を最新postに
+    if (this.postList.length > 0) {
+      this.comment.postID = this.postList[this.postList.length - 1].id;
+    }
   }
 
   /** blogを作成 */
@@ -75,11 +126,25 @@ export class AppComponent implements OnInit {
       .catch(e => console.log('error creating blog...', e));
   }
 
+  /** blogを取得 */
+  getBlog(id: string): void {
+    this.api.GetBlog(id)
+      .then(e => console.log(e))
+      .catch(e => console.log(e));
+  }
+
   /** postを作成 */
   createPost(): void {
     this.api.CreatePost(this.post)
       .then(e => console.log(e))
       .catch(e => console.log('error creating post...', e));
+  }
+
+  /** postを取得 */
+  getPost(id: string): void {
+    this.api.GetPost(id)
+      .then(e => console.log(e))
+      .catch(e => console.log(e));
   }
 
   /** commentを作成 */
@@ -88,6 +153,13 @@ export class AppComponent implements OnInit {
     this.api.CreateComment(this.comment)
       .then(e => console.log(e))
       .catch(e => console.log('error creating comment...', e));
+  }
+
+  /** postを取得 */
+  getComment(id: string): void {
+    this.api.GetComment(id)
+      .then(e => console.log(e))
+      .catch(e => console.log(e));
   }
 
 }

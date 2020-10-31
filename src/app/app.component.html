@@ -8,7 +8,7 @@
 
   <!-- blog取得 -->
   <div *ngFor="let b of blogList" style="font-size: small; color: #ccc">
-    <div>{{ b.name }} : {{ b.id }}</div>
+    <div><button (click)="getBlog(b.id)">取得</button>　{{ b.name }} : {{ b.id }}</div>
   </div>
 </ul>
 
@@ -31,7 +31,7 @@
 
   <!-- post取得 -->
   <div *ngFor="let p of postList" style="font-size: small; color: #ccc">
-    <div>{{ p.title }} : {{ p.id }}</div>
+    <div><button (click)="getPost(p.id)">取得</button> {{ p.title }} : {{ p.id }}</div>
   </div>
 </ul>
 
@@ -54,6 +54,6 @@
 
     <!-- comment取得 -->
     <div *ngFor="let c of commentList" style="font-size: small; color: #ccc">
-      <div>{{ c.content }} : {{ c.id }}</div>
+      <div><button (click)="getComment(c.id)">取得</button> {{ c.content }} : {{ c.id }}</div>
     </div>
 </ul>
