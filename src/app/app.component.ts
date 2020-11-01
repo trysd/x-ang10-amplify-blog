@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { APIService, ListBlogsQuery } from './API.service';
+import { APIService, ListBlogsQuery, SearchablePostSortableFields, SearchableSortDirection } from './API.service';
 import * as t from '../types';
 
 @Component({
@@ -9,6 +9,8 @@ import * as t from '../types';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  hide = {};
 
   /** blogフォーム状態 */
   blog: t.Blog = {
@@ -101,6 +103,27 @@ export class AppComponent implements OnInit {
       // リスト更新
       (e: any) => this.commentList = [e.value.data.onCreateComment, ...this.commentList]);
 
+    // filter sample =====
+    setTimeout(() => {
+      // sort by erasticsearch
+      this.api.SearchPosts({
+        title: { eq: 'aaap' },
+      }, {
+        field: SearchablePostSortableFields.createdAt,
+        direction: SearchableSortDirection.desc
+      }).then(
+        e => console.log(e)
+      );
+
+      // basic filter
+      this.api.ListPosts({ title: { eq: 'bbbc' } })
+        .then(e => console.log(e));
+
+
+
+
+
+    }, 555);
   }
 
   /** blog選択状態更新 */
@@ -133,6 +156,13 @@ export class AppComponent implements OnInit {
       .catch(e => console.log(e));
   }
 
+  /** blog削除 */
+  deleteBlog(id): void {
+    this.api.DeleteBlog({ id })
+      .then(e => console.log(e))
+      .catch(e => console.log(e));
+  }
+
   /** postを作成 */
   createPost(): void {
     this.api.CreatePost(this.post)
@@ -143,6 +173,13 @@ export class AppComponent implements OnInit {
   /** postを取得 */
   getPost(id: string): void {
     this.api.GetPost(id)
+      .then(e => console.log(e))
+      .catch(e => console.log(e));
+  }
+
+  /** post削除 */
+  deletePost(id): void {
+    this.api.DeletePost({ id })
       .then(e => console.log(e))
       .catch(e => console.log(e));
   }
@@ -158,6 +195,13 @@ export class AppComponent implements OnInit {
   /** postを取得 */
   getComment(id: string): void {
     this.api.GetComment(id)
+      .then(e => console.log(e))
+      .catch(e => console.log(e));
+  }
+
+  /** comment削除 */
+  deleteComment(id): void {
+    this.api.DeleteComment({ id })
       .then(e => console.log(e))
       .catch(e => console.log(e));
   }

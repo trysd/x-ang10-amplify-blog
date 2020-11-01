@@ -8,7 +8,10 @@
 
   <!-- blog取得 -->
   <div *ngFor="let b of blogList" style="font-size: small; color: #ccc">
-    <div><button (click)="getBlog(b.id)">取得</button>　{{ b.name }} : {{ b.id }}</div>
+      <div *ngIf="!hide[b.id]">
+      <button (click)="getBlog(b.id)">取得</button>
+      <button (click)="deleteBlog(b.id); hide[b.id]=true">削除</button>
+      {{ b.name }} : {{ b.id }}</div>
   </div>
 </ul>
 
@@ -31,7 +34,10 @@
 
   <!-- post取得 -->
   <div *ngFor="let p of postList" style="font-size: small; color: #ccc">
-    <div><button (click)="getPost(p.id)">取得</button> {{ p.title }} : {{ p.id }}</div>
+    <div *ngIf="!hide[p.id]">
+      <button (click)="getPost(p.id)">取得</button>
+      <button (click)="deletePost(p.id); hide[p.id]=true">削除</button>
+      {{ p.title }} : {{ p.id }}</div>
   </div>
 </ul>
 
@@ -54,6 +60,10 @@
 
     <!-- comment取得 -->
     <div *ngFor="let c of commentList" style="font-size: small; color: #ccc">
-      <div><button (click)="getComment(c.id)">取得</button> {{ c.content }} : {{ c.id }}</div>
+      <div *ngIf="!hide[c.id]">
+        <button (click)="getComment(c.id)">取得</button>
+        <button (click)="deleteComment(c.id); hide[c.id]=true">削除</button>
+        {{ c.content }} : {{ c.id }}
+      </div>
     </div>
 </ul>

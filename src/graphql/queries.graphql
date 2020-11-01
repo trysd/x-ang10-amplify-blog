@@ -136,3 +136,58 @@ query ListComments(
     nextToken
   }
 }
+query GetTest($id: ID!) {
+  getTest(id: $id) {
+    id
+    createdAt
+    updatedAt
+  }
+}
+query ListTests(
+  $filter: ModeltestFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query SearchPosts(
+  $filter: SearchablePostFilterInput
+  $sort: SearchablePostSortInput
+  $limit: Int
+  $nextToken: String
+  $from: Int
+) {
+  searchPosts(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+    from: $from
+  ) {
+    items {
+      id
+      title
+      blogID
+      blog {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      comments {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+    total
+  }
+}

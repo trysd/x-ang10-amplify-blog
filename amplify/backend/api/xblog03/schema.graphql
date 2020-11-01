@@ -4,17 +4,26 @@ type Blog @model {
   posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
 }
 
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+type Post
+  @model @key(name: "byBlog", fields: ["blogID", "title"])
+  @searchable
+{
   id: ID!
   title: String!
   blogID: ID!
   blog: Blog @connection(fields: ["blogID"])
   comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+  createdAt: AWSDateTime
 }
 
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+type Comment @model @key(name: "byPost", fields: ["postID", "createdAt"]) {
   id: ID!
   postID: ID!
   post: Post @connection(fields: ["postID"])
   content: String!
+  createdAt: AWSDateTime
+}
+
+type test @model {
+id:ID!
 }

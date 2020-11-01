@@ -239,3 +239,33 @@ mutation DeleteComment(
     updatedAt
   }
 }
+mutation CreateTest(
+  $input: CreateTestInput!
+  $condition: ModeltestConditionInput
+) {
+  createTest(input: $input, condition: $condition) {
+    id
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTest(
+  $input: UpdateTestInput!
+  $condition: ModeltestConditionInput
+) {
+  updateTest(input: $input, condition: $condition) {
+    id
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTest(
+  $input: DeleteTestInput!
+  $condition: ModeltestConditionInput
+) {
+  deleteTest(input: $input, condition: $condition) {
+    id
+    createdAt
+    updatedAt
+  }
+}

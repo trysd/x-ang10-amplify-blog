@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 /* import AmplifyUIAngularModule  */
-import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
+// import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule,
     /* configure app with AmplifyUIAngularModule */
-    AmplifyUIAngularModule,
+    // AmplifyUIAngularModule,
     FormsModule
   ],
   providers: [],

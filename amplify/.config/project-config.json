@@ -1,12 +1,12 @@
 {
-  "projectName": "xang10amplifyblog",
+  "projectName": "xblog03",
   "version": "3.0",
   "frontend": "javascript",
   "javascript": {
     "framework": "angular",
     "config": {
       "SourceDir": "src",
-      "DistributionDir": "dist/x-amplify-blog",
+      "DistributionDir": "dist/x-blog03",
       "BuildCommand": "npm run-script build",
       "StartCommand": "ng serve"
     }

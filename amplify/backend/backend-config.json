@@ -1,6 +1,6 @@
 {
   "api": {
-    "xang10amplifyblog": {
+    "xblog03": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {

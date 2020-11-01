@@ -212,3 +212,24 @@ subscription OnDeleteComment {
     updatedAt
   }
 }
+subscription OnCreateTest {
+  onCreateTest {
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTest {
+  onUpdateTest {
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTest {
+  onDeleteTest {
+    id
+    createdAt
+    updatedAt
+  }
+}

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "x-amplify-blog": {
+    "x-blog03": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/x-amplify-blog",
+            "outputPath": "dist/x-blog03",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -84,7 +84,8 @@
               "amazon-cognito-identity-js",
               "uuid",
               "isomorphic-unfetch",
-              "url"
+              "url",
+              "lodash"
             ]
           },
           "configurations": {
@@ -121,18 +122,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "x-amplify-blog:build"
+            "browserTarget": "x-blog03:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "x-amplify-blog:build:production"
+              "browserTarget": "x-blog03:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "x-amplify-blog:build"
+            "browserTarget": "x-blog03:build"
           }
         },
         "test": {
@@ -169,15 +170,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "x-amplify-blog:serve"
+            "devServerTarget": "x-blog03:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "x-amplify-blog:serve:production"
+              "devServerTarget": "x-blog03:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "x-amplify-blog"
+  "defaultProject": "x-blog03"
 }

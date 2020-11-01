@@ -73,11 +73,13 @@ export type CreatePostInput = {
   id?: string | null;
   title: string;
   blogID: string;
+  createdAt?: string | null;
 };
 
 export type ModelPostConditionInput = {
   title?: ModelStringInput | null;
   blogID?: ModelIDInput | null;
+  createdAt?: ModelStringInput | null;
   and?: Array<ModelPostConditionInput | null> | null;
   or?: Array<ModelPostConditionInput | null> | null;
   not?: ModelPostConditionInput | null;
@@ -103,6 +105,7 @@ export type UpdatePostInput = {
   id: string;
   title?: string | null;
   blogID?: string | null;
+  createdAt?: string | null;
 };
 
 export type DeletePostInput = {
@@ -113,11 +116,13 @@ export type CreateCommentInput = {
   id?: string | null;
   postID: string;
   content: string;
+  createdAt?: string | null;
 };
 
 export type ModelCommentConditionInput = {
   postID?: ModelIDInput | null;
   content?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
   and?: Array<ModelCommentConditionInput | null> | null;
   or?: Array<ModelCommentConditionInput | null> | null;
   not?: ModelCommentConditionInput | null;
@@ -127,9 +132,28 @@ export type UpdateCommentInput = {
   id: string;
   postID?: string | null;
   content?: string | null;
+  createdAt?: string | null;
 };
 
 export type DeleteCommentInput = {
+  id?: string | null;
+};
+
+export type CreateTestInput = {
+  id?: string | null;
+};
+
+export type ModeltestConditionInput = {
+  and?: Array<ModeltestConditionInput | null> | null;
+  or?: Array<ModeltestConditionInput | null> | null;
+  not?: ModeltestConditionInput | null;
+};
+
+export type UpdateTestInput = {
+  id: string;
+};
+
+export type DeleteTestInput = {
   id?: string | null;
 };
 
@@ -145,6 +169,7 @@ export type ModelPostFilterInput = {
   id?: ModelIDInput | null;
   title?: ModelStringInput | null;
   blogID?: ModelIDInput | null;
+  createdAt?: ModelStringInput | null;
   and?: Array<ModelPostFilterInput | null> | null;
   or?: Array<ModelPostFilterInput | null> | null;
   not?: ModelPostFilterInput | null;
@@ -154,10 +179,79 @@ export type ModelCommentFilterInput = {
   id?: ModelIDInput | null;
   postID?: ModelIDInput | null;
   content?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
   and?: Array<ModelCommentFilterInput | null> | null;
   or?: Array<ModelCommentFilterInput | null> | null;
   not?: ModelCommentFilterInput | null;
 };
+
+export type ModeltestFilterInput = {
+  id?: ModelIDInput | null;
+  and?: Array<ModeltestFilterInput | null> | null;
+  or?: Array<ModeltestFilterInput | null> | null;
+  not?: ModeltestFilterInput | null;
+};
+
+export type SearchablePostFilterInput = {
+  id?: SearchableIDFilterInput | null;
+  title?: SearchableStringFilterInput | null;
+  blogID?: SearchableIDFilterInput | null;
+  createdAt?: SearchableStringFilterInput | null;
+  and?: Array<SearchablePostFilterInput | null> | null;
+  or?: Array<SearchablePostFilterInput | null> | null;
+  not?: SearchablePostFilterInput | null;
+};
+
+export type SearchableIDFilterInput = {
+  ne?: string | null;
+  gt?: string | null;
+  lt?: string | null;
+  gte?: string | null;
+  lte?: string | null;
+  eq?: string | null;
+  match?: string | null;
+  matchPhrase?: string | null;
+  matchPhrasePrefix?: string | null;
+  multiMatch?: string | null;
+  exists?: boolean | null;
+  wildcard?: string | null;
+  regexp?: string | null;
+  range?: Array<string | null> | null;
+};
+
+export type SearchableStringFilterInput = {
+  ne?: string | null;
+  gt?: string | null;
+  lt?: string | null;
+  gte?: string | null;
+  lte?: string | null;
+  eq?: string | null;
+  match?: string | null;
+  matchPhrase?: string | null;
+  matchPhrasePrefix?: string | null;
+  multiMatch?: string | null;
+  exists?: boolean | null;
+  wildcard?: string | null;
+  regexp?: string | null;
+  range?: Array<string | null> | null;
+};
+
+export type SearchablePostSortInput = {
+  field?: SearchablePostSortableFields | null;
+  direction?: SearchableSortDirection | null;
+};
+
+export enum SearchablePostSortableFields {
+  id = "id",
+  title = "title",
+  blogID = "blogID",
+  createdAt = "createdAt"
+}
+
+export enum SearchableSortDirection {
+  asc = "asc",
+  desc = "desc"
+}
 
 export type CreateBlogMutation = {
   __typename: "Blog";
@@ -170,7 +264,7 @@ export type CreateBlogMutation = {
       id: string;
       title: string;
       blogID: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
@@ -190,7 +284,7 @@ export type UpdateBlogMutation = {
       id: string;
       title: string;
       blogID: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
@@ -210,7 +304,7 @@ export type DeleteBlogMutation = {
       id: string;
       title: string;
       blogID: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
@@ -242,12 +336,12 @@ export type CreatePostMutation = {
       id: string;
       postID: string;
       content: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
   } | null;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -274,12 +368,12 @@ export type UpdatePostMutation = {
       id: string;
       postID: string;
       content: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
   } | null;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -306,12 +400,12 @@ export type DeletePostMutation = {
       id: string;
       postID: string;
       content: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
   } | null;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -335,11 +429,11 @@ export type CreateCommentMutation = {
       __typename: "ModelCommentConnection";
       nextToken: string | null;
     } | null;
-    createdAt: string;
+    createdAt: string | null;
     updatedAt: string;
   } | null;
   content: string;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -363,11 +457,11 @@ export type UpdateCommentMutation = {
       __typename: "ModelCommentConnection";
       nextToken: string | null;
     } | null;
-    createdAt: string;
+    createdAt: string | null;
     updatedAt: string;
   } | null;
   content: string;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -391,10 +485,31 @@ export type DeleteCommentMutation = {
       __typename: "ModelCommentConnection";
       nextToken: string | null;
     } | null;
-    createdAt: string;
+    createdAt: string | null;
     updatedAt: string;
   } | null;
   content: string;
+  createdAt: string | null;
+  updatedAt: string;
+};
+
+export type CreateTestMutation = {
+  __typename: "test";
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateTestMutation = {
+  __typename: "test";
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteTestMutation = {
+  __typename: "test";
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -410,7 +525,7 @@ export type GetBlogQuery = {
       id: string;
       title: string;
       blogID: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
@@ -458,12 +573,12 @@ export type GetPostQuery = {
       id: string;
       postID: string;
       content: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
   } | null;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -485,7 +600,7 @@ export type ListPostsQuery = {
       __typename: "ModelCommentConnection";
       nextToken: string | null;
     } | null;
-    createdAt: string;
+    createdAt: string | null;
     updatedAt: string;
   } | null> | null;
   nextToken: string | null;
@@ -511,11 +626,11 @@ export type GetCommentQuery = {
       __typename: "ModelCommentConnection";
       nextToken: string | null;
     } | null;
-    createdAt: string;
+    createdAt: string | null;
     updatedAt: string;
   } | null;
   content: string;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -530,14 +645,57 @@ export type ListCommentsQuery = {
       id: string;
       title: string;
       blogID: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null;
     content: string;
+    createdAt: string | null;
+    updatedAt: string;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetTestQuery = {
+  __typename: "test";
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListTestsQuery = {
+  __typename: "ModeltestConnection";
+  items: Array<{
+    __typename: "test";
+    id: string;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
   nextToken: string | null;
+};
+
+export type SearchPostsQuery = {
+  __typename: "SearchablePostConnection";
+  items: Array<{
+    __typename: "Post";
+    id: string;
+    title: string;
+    blogID: string;
+    blog: {
+      __typename: "Blog";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      nextToken: string | null;
+    } | null;
+    createdAt: string | null;
+    updatedAt: string;
+  } | null> | null;
+  nextToken: string | null;
+  total: number | null;
 };
 
 export type OnCreateBlogSubscription = {
@@ -551,7 +709,7 @@ export type OnCreateBlogSubscription = {
       id: string;
       title: string;
       blogID: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
@@ -571,7 +729,7 @@ export type OnUpdateBlogSubscription = {
       id: string;
       title: string;
       blogID: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
@@ -591,7 +749,7 @@ export type OnDeleteBlogSubscription = {
       id: string;
       title: string;
       blogID: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
@@ -623,12 +781,12 @@ export type OnCreatePostSubscription = {
       id: string;
       postID: string;
       content: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
   } | null;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -655,12 +813,12 @@ export type OnUpdatePostSubscription = {
       id: string;
       postID: string;
       content: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
   } | null;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -687,12 +845,12 @@ export type OnDeletePostSubscription = {
       id: string;
       postID: string;
       content: string;
-      createdAt: string;
+      createdAt: string | null;
       updatedAt: string;
     } | null> | null;
     nextToken: string | null;
   } | null;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -716,11 +874,11 @@ export type OnCreateCommentSubscription = {
       __typename: "ModelCommentConnection";
       nextToken: string | null;
     } | null;
-    createdAt: string;
+    createdAt: string | null;
     updatedAt: string;
   } | null;
   content: string;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -744,11 +902,11 @@ export type OnUpdateCommentSubscription = {
       __typename: "ModelCommentConnection";
       nextToken: string | null;
     } | null;
-    createdAt: string;
+    createdAt: string | null;
     updatedAt: string;
   } | null;
   content: string;
-  createdAt: string;
+  createdAt: string | null;
   updatedAt: string;
 };
 
@@ -772,10 +930,31 @@ export type OnDeleteCommentSubscription = {
       __typename: "ModelCommentConnection";
       nextToken: string | null;
     } | null;
-    createdAt: string;
+    createdAt: string | null;
     updatedAt: string;
   } | null;
   content: string;
+  createdAt: string | null;
+  updatedAt: string;
+};
+
+export type OnCreateTestSubscription = {
+  __typename: "test";
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateTestSubscription = {
+  __typename: "test";
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteTestSubscription = {
+  __typename: "test";
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -1168,6 +1347,75 @@ export class APIService {
     )) as any;
     return <DeleteCommentMutation>response.data.deleteComment;
   }
+  async CreateTest(
+    input: CreateTestInput,
+    condition?: ModeltestConditionInput
+  ): Promise<CreateTestMutation> {
+    const statement = `mutation CreateTest($input: CreateTestInput!, $condition: ModeltestConditionInput) {
+        createTest(input: $input, condition: $condition) {
+          __typename
+          id
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateTestMutation>response.data.createTest;
+  }
+  async UpdateTest(
+    input: UpdateTestInput,
+    condition?: ModeltestConditionInput
+  ): Promise<UpdateTestMutation> {
+    const statement = `mutation UpdateTest($input: UpdateTestInput!, $condition: ModeltestConditionInput) {
+        updateTest(input: $input, condition: $condition) {
+          __typename
+          id
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateTestMutation>response.data.updateTest;
+  }
+  async DeleteTest(
+    input: DeleteTestInput,
+    condition?: ModeltestConditionInput
+  ): Promise<DeleteTestMutation> {
+    const statement = `mutation DeleteTest($input: DeleteTestInput!, $condition: ModeltestConditionInput) {
+        deleteTest(input: $input, condition: $condition) {
+          __typename
+          id
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteTestMutation>response.data.deleteTest;
+  }
   async GetBlog(id: string): Promise<GetBlogQuery> {
     const statement = `query GetBlog($id: ID!) {
         getBlog(id: $id) {
@@ -1401,6 +1649,109 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListCommentsQuery>response.data.listComments;
+  }
+  async GetTest(id: string): Promise<GetTestQuery> {
+    const statement = `query GetTest($id: ID!) {
+        getTest(id: $id) {
+          __typename
+          id
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetTestQuery>response.data.getTest;
+  }
+  async ListTests(
+    filter?: ModeltestFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListTestsQuery> {
+    const statement = `query ListTests($filter: ModeltestFilterInput, $limit: Int, $nextToken: String) {
+        listTests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListTestsQuery>response.data.listTests;
+  }
+  async SearchPosts(
+    filter?: SearchablePostFilterInput,
+    sort?: SearchablePostSortInput,
+    limit?: number,
+    nextToken?: string,
+    from?: number
+  ): Promise<SearchPostsQuery> {
+    const statement = `query SearchPosts($filter: SearchablePostFilterInput, $sort: SearchablePostSortInput, $limit: Int, $nextToken: String, $from: Int) {
+        searchPosts(filter: $filter, sort: $sort, limit: $limit, nextToken: $nextToken, from: $from) {
+          __typename
+          items {
+            __typename
+            id
+            title
+            blogID
+            blog {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            comments {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+          total
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (sort) {
+      gqlAPIServiceArguments.sort = sort;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (from) {
+      gqlAPIServiceArguments.from = from;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SearchPostsQuery>response.data.searchPosts;
   }
   OnCreateBlogListener: Observable<
     SubscriptionResponse<OnCreateBlogSubscription>
@@ -1713,4 +2064,49 @@ export class APIService {
       }`
     )
   ) as Observable<SubscriptionResponse<OnDeleteCommentSubscription>>;
+
+  OnCreateTestListener: Observable<
+    SubscriptionResponse<OnCreateTestSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateTest {
+        onCreateTest {
+          __typename
+          id
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnCreateTestSubscription>>;
+
+  OnUpdateTestListener: Observable<
+    SubscriptionResponse<OnUpdateTestSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateTest {
+        onUpdateTest {
+          __typename
+          id
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnUpdateTestSubscription>>;
+
+  OnDeleteTestListener: Observable<
+    SubscriptionResponse<OnDeleteTestSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteTest {
+        onDeleteTest {
+          __typename
+          id
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnDeleteTestSubscription>>;
 }
